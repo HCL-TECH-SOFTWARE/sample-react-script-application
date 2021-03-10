@@ -1,0 +1,14 @@
+version: '3.0'
+services:
+  dx:
+    image: registry.cklein.us/hcl_dx/core:v95_CF18_20200427-2055
+    container_name: dx
+    ports:
+      - "10038:10038"
+      - "10039:10039"
+      - "10041:10041"
+      - "10042:10042"
+      - "10200:10200" 
+      - "10202:10202"
+    volumes:
+      - "C:/HCL/Profiles/wp_profile:/opt/HCL/wp_profile"

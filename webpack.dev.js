@@ -1,11 +1,11 @@
 const path = require('path');
 const common = require('./webpack.common');
-const merge = require('webpack-merge');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { merge } = require('webpack-merge'); // New import based on the 5.0.3 changelog
+const HTMLWebpackPlugin = require('html-webpack-plugin'); 
 
 module.exports = merge (common, {
     mode: "development",
-    devtool: "none",
+    devtool: 'eval',
     output: {
         filename: "[name].bundle.js",
         path: path.resolve(__dirname, "dev"),

@@ -44,7 +44,7 @@ The example uses the HCL DX 9.5 docker container but any DX instance can be used
     - Make sure to restart the WebSphere_Portal server after these updates.
     
 6. Clone this project somewhere on your drive
-7. Run npm install at the root of the project to install Babel and its dependencies.
+7. Run npm install at the root of the project to install Babel and its dependencies. *You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `* to install the dependencies.
 8. Create a symbolic link to the build folder from the scripts directory
     
     **_Windows:_**

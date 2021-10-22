@@ -1,6 +1,6 @@
 let path = require("path");
 let common = require("./webpack.common");
-let merge = require("webpack-merge");
+const { merge } = require('webpack-merge'); // New import based on the 5.0.3 changelog
 let {CleanWebpackPlugin} = require("clean-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");

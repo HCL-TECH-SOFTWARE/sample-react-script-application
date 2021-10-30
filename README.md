@@ -3,6 +3,8 @@
 ## Overview
 This example app shows how React can be used in Script App portlets. It uses DX modular themes aggregator capability to provide React and ReactDOM.
 
+You can also run React inside a WCM component using Babel ([see here](./babel-standalone.md)) or pre-transpiled code. Using @babel/standalone is not recommended for production deployments (see: https://babeljs.io/docs/en/babel-standalone). 
+
 For more information on how to build and deploy DX Script Apps, see the following links:
 
 - [Script Application Section in the official HCL DX documentation](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_portlet.html)
@@ -55,7 +57,8 @@ The example uses the HCL DX 9.5 docker container but any DX instance can be used
       
       ```mklink /D C:\HCL\dxdashboard\script\react-meme C:\HCL\dxdashboard\dev\react-meme\build```
 9. Run `npm run build` to build to the build folder. If the folder is linked into the script folder of the Dashoard and watch is enabled on the folder in the Dashboard, changes will be pushed into the configured DX server automatically. 
-10. Add React and ReactDOM to the theme you want to use - here we will use the default Portal 8.5 Theme.
+
+10. <a name='add-react'>Add</a> React and ReactDOM to the theme you want to use - here we will use the default Portal 8.5 Theme.
     - In the DX Web Developer Dashboard go to Themes and hit Get Themes. (The images show an already configured setup) 
     
     ![web developer dashboard themes](./img/wdd-themes-1.png)

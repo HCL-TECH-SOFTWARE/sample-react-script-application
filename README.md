@@ -32,6 +32,10 @@ Run `npm run build` to build to the build folder. If the folder is linked into t
 
 The example uses the HCL DX 9.5 docker container but any DX instance can be used. 
 
+## Caution
+
+Please do not set the `collapseWhitespace` to `false` in your webpack minify configuration. There is an issue with the importer expecting a carriage return at the end of the html document and if it is not present, it will place the <htmlwrapper> incorrectly, hiding the React component output.
+
 ## Setup
 
 1. If you want to install a local DX docker container to run against, see the instructions [here](./docker.md).
@@ -79,11 +83,12 @@ The example uses the HCL DX 9.5 docker container but any DX instance can be used
     ![web developer dashboard themes](./img/wdd-themes-4.png)
 
     - Within each of the new folders, create a head folder.
-    - Download the React and ReactDom minified javascript files and copy them into the respective head folders.
+    - Download the React and ReactDom minified javascript files and copy them into the respective head folders. (For development/debug, use the non minifed js files)
 
     ![web developer dashboard themes](./img/wdd-themes-5.png)
 
-    - Create a file named **_prereqs.properties_** in the **_react_dom_** folder and add **_react_** as a dependency.
+    - Create a file named **_prereqs.properties_** in the **_react_dom_** folder and add **_react_** as a dependency. 
+    **_Make sure that the name matches the module providing react._**
 
     ![web developer dashboard themes](./img/wdd-themes-6.png)
 

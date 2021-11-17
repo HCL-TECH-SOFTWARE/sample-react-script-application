@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/christian-klein/react-meme.git"
+    "url": "https://github.com/HCL-TECH-SOFTWARE/sample-react-script-application.git"
   },
   "bugs": {
-    "url": "https://github.com/christian-klein/react-meme/issues"
+    "url": "https://github.com/HCL-TECH-SOFTWARE/sample-react-script-application/issues"
   },
-  "homepage": "https://github.com/christian-klein/react-meme#readme"
+  "homepage": "https://github.com/HCL-TECH-SOFTWARE/sample-react-script-application"
 }

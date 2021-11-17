@@ -32,6 +32,10 @@ Run `npm run build` to build to the build folder. If the folder is linked into t
 
 The example uses the HCL DX 9.5 docker container but any DX instance can be used. 
 
+## Caution
+
+Please do not set the `collapseWhitespace` to `false` in your webpack minify configuration. There is an issue with the importer expecting a carriage return at the end of the html document and if it is not present, it will place the <htmlwrapper> incorrectly, hiding the React component output.
+
 ## Setup
 
 1. If you want to install a local DX docker container to run against, see the instructions [here](./docker.md).

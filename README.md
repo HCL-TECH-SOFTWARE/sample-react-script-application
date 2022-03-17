@@ -51,7 +51,7 @@ Alternatively you can also use sp push application or dxclient.
     - Go to the Websphere Application Server Integrated Solution Console at https://localhost:10041/ibm/console
     - Set (or create) both the dynamic.parameter.tag.enabled and the renderingplugin.shortform.enabled resource environment provider values of the WCM WCMConfigService service to false in the HCL Digital Experience Integrated Solutions Console.
     After 201: 
-    - Use the configuration task ConfigEngine.sh|bat enable-wcm-spa-script-app-properties - for details see doc: [here]{https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_app_improvements.html?hl=react#script_app_improvements__section_mhm_pzw_3sb}
+    - Use the configuration task ConfigEngine.sh|bat enable-wcm-spa-script-app-properties - for details see doc: [here](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_app_improvements.html?hl=react#script_app_improvements__section_mhm_pzw_3sb)
     - Make sure to restart the WebSphere_Portal server after these updates.
     
 6. Clone this project somewhere on your drive
@@ -126,7 +126,7 @@ If deploying after CF201:
 
     ![web developer dashboard themes](./img/wdd-script-1.png)
 
-    - Alternatively you can use dxclient to push the script application. For more information see [here]{https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b}
+Alternatively you can use dxclient to push the script application. For more information see [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b)
 
     - Create a new page in DX and choose the React profile for it in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 

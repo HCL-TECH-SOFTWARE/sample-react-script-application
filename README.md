@@ -34,6 +34,7 @@ The example uses the HCL DX 9.5 docker container but any DX instance can be used
 
 ## Caution
 
+Before version 201 (This issue has been fixed with DX CF 201 onward):
 Please do not set the `collapseWhitespace` to `false` in your webpack minify configuration. There is an issue with the importer expecting a carriage return at the end of the html document and if it is not present, it will place the <htmlwrapper> incorrectly, hiding the React component output.
 
 ## Setup
@@ -43,10 +44,14 @@ Please do not set the `collapseWhitespace` to `false` in your webpack minify con
 2. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
 
 3. Install the DX Web Developer Dashboard and point it to the DX server you want to deploy to, if you do not have done so already. See instructions [here](./dxwebdashboard.md).
+Alternatively you can also use sp push application or dxclient. 
 
-5. Turn off dynamic parameter tag and shortform in DX since they may intefer with some of the syntax you will use with React. . 
+5. Turn off dynamic parameter tag and shortform in DX since they may interfere with some of the syntax you will use with React. 
+    Before 201:
     - Go to the Websphere Application Server Integrated Solution Console at https://localhost:10041/ibm/console
     - Set (or create) both the dynamic.parameter.tag.enabled and the renderingplugin.shortform.enabled resource environment provider values of the WCM WCMConfigService service to false in the HCL Digital Experience Integrated Solutions Console.
+    After 201: 
+    - Use the configuration task ConfigEngine.sh|bat enable-wcm-spa-script-app-properties - for details see doc: [here]{https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_app_improvements.html?hl=react#script_app_improvements__section_mhm_pzw_3sb}
     - Make sure to restart the WebSphere_Portal server after these updates.
     
 6. Clone this project somewhere on your drive
@@ -63,6 +68,9 @@ Please do not set the `collapseWhitespace` to `false` in your webpack minify con
 9. Run `npm run build` to build to the build folder. If the folder is linked into the script folder of the Dashoard and watch is enabled on the folder in the Dashboard, changes will be pushed into the configured DX server automatically. 
 
 10. <a name='add-react'>Add</a> React and ReactDOM to the theme you want to use - here we will use the default Portal 8.5 Theme.
+
+If deploying before CF201 or when deploying into your own theme:
+
     - In the DX Web Developer Dashboard go to Themes and hit Get Themes. (The images show an already configured setup) 
     
     ![web developer dashboard themes](./img/wdd-themes-1.png)
@@ -105,11 +113,20 @@ Please do not set the `collapseWhitespace` to `false` in your webpack minify con
     ![web developer dashboard themes](./img/wdd-themes-9.png)
 
     - Save your change and push the updates to the theme to the server.
+
+If deploying after CF201:
+
+    - A new Deferred with React theme profile was added that includes React v16 which can be used on pages contain React script applications. 
+
+11. Upload the script app.
+
     - In the DX Web Developer Dashboard go to Script Applications and hit refresh. Since you linked the build folder into the scripts folder in step 8, you should now see the react-meme application.
     - Script Applications are stored as content in the CMS, and the sp-config.json file in the src folder configures the DX Web Developer Dashboard appropriately. See the documentation on [command line push support](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/cmd_line_push_cmd.html) for more information.
     - You can now push the application to the server using the push option.
 
     ![web developer dashboard themes](./img/wdd-script-1.png)
+
+    - Alternatively you can use dxclient to push the script application. For more information see [here]{https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b}
 
     - Create a new page in DX and choose the React profile for it in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 

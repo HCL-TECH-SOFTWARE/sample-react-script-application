@@ -34,8 +34,9 @@ The example uses the HCL DX 9.5 docker container but any DX instance can be used
 
 ## Caution
 
-Before version 201 (This issue has been fixed with DX CF 201 onward):
-Please do not set the `collapseWhitespace` to `false` in your webpack minify configuration. There is an issue with the importer expecting a carriage return at the end of the html document and if it is not present, it will place the <htmlwrapper> incorrectly, hiding the React component output.
+Before version 201 there were some issues that have since been addressed as well as needing to add React and React Dom to your theme manually. 
+
+If you would like to add your own React files or need instructions for environments before CF 201 please review this document: [PRE-CF201.md](PRE-CF201.md)
 
 ## Setup
 
@@ -46,18 +47,13 @@ Please do not set the `collapseWhitespace` to `false` in your webpack minify con
 3. Install the DX Web Developer Dashboard and point it to the DX server you want to deploy to, if you do not have done so already. See instructions [here](./dxwebdashboard.md).
 Alternatively you can also use sp push application or dxclient. 
 
-5. Turn off dynamic parameter tag and shortform in DX since they may interfere with some of the syntax you will use with React. 
-    Before 201:
-    - Go to the Websphere Application Server Integrated Solution Console at https://localhost:10041/ibm/console
-    - Set (or create) both the dynamic.parameter.tag.enabled and the renderingplugin.shortform.enabled resource environment provider values of the WCM WCMConfigService service to false in the HCL Digital Experience Integrated Solutions Console.
-    After 201: 
-    - Use the configuration task ConfigEngine.sh|bat enable-wcm-spa-script-app-properties - for details see doc: [here](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_app_improvements.html?hl=react#script_app_improvements__section_mhm_pzw_3sb)
-    - Make sure to restart the WebSphere_Portal server after these updates.
-    
 6. Clone this project somewhere on your drive
 7. Run npm install at the root of the project to install Babel and its dependencies. *You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `* to install the dependencies.
 8. Create a symbolic link to the build folder from the scripts directory
     
+    **_Linux / MAC OS_**
+    - ln  -s /_my_react_sample_app_folder_/sample-react-script-application/build /_my_DX_Web_Dev_Dashboard_folder_/DX/script/build
+
     **_Windows:_**
     - Click the Start button
     - Type CMD in the Start Search box
@@ -67,56 +63,6 @@ Alternatively you can also use sp push application or dxclient.
       ```mklink /D C:\HCL\dxdashboard\script\react-meme C:\HCL\dxdashboard\dev\react-meme\build```
 9. Run `npm run build` to build to the build folder. If the folder is linked into the script folder of the Dashoard and watch is enabled on the folder in the Dashboard, changes will be pushed into the configured DX server automatically. 
 
-10. <a name='add-react'>Add</a> React and ReactDOM to the theme you want to use - here we will use the default Portal 8.5 Theme.
-
-If deploying before CF201 or when deploying into your own theme:
-
-    - In the DX Web Developer Dashboard go to Themes and hit Get Themes. (The images show an already configured setup) 
-    
-    ![web developer dashboard themes](./img/wdd-themes-1.png)
-
-    - You may see a screen with a **_Get Server Themes option_**, click that button.
-
-    ![web developer dashboard themes](./img/wdd-themes-2.png)
-
-    - The Dashboard will show you all themes on the server you may use. Supply a name for the folder where you want to store the theme assets in under the Portal 8.5 theme.
-
-    ![web developer dashboard themes](./img/wdd-themes-3.png)
-
-    - Click **_Create Theme Folders_** 
-    - The dashboard will now pull all the theme assets to the folder you specified.
-    - Go to the theme folder and into the **_modules_** sub folder
-    - Create two new folders in the **_modules_** sub folder named **_react_** and **_react_dom_**
-
-    ![web developer dashboard themes](./img/wdd-themes-4.png)
-
-    - Within each of the new folders, create a head folder.
-    - Download the React and ReactDom minified javascript files and copy them into the respective head folders. (For development/debug, use the non minifed js files)
-
-    ![web developer dashboard themes](./img/wdd-themes-5.png)
-
-    - Create a file named **_prereqs.properties_** in the **_react_dom_** folder and add **_react_** as a dependency. 
-    **_Make sure that the name matches the module providing react._**
-
-    ![web developer dashboard themes](./img/wdd-themes-6.png)
-
-    VS Code:
-
-    ![web developer dashboard themes](./img/wdd-themes-7.png)
-
-    - Go back to the dashboard and go to Themes and click the Profiles button for the Portal 8.5 theme.
-
-    ![web developer dashboard themes](./img/wdd-themes-8.png)
-
-    - Copy the **_Deferred_** profile, name it **_React_** and add the **_react_** and **_react_dom_** modules.
-
-    ![web developer dashboard themes](./img/wdd-themes-9.png)
-
-    - Save your change and push the updates to the theme to the server.
-
-If deploying after CF201:
-
-    - A new Deferred with React theme profile was added that includes React v16 which can be used on pages contain React script applications. 
 
 11. Upload the script app.
 
@@ -128,9 +74,12 @@ If deploying after CF201:
 
 Alternatively you can use dxclient to push the script application. For more information see [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b)
 
-    - Create a new page in DX and choose the React profile for it in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
+    - Create a new page in DX and choose the `Deferred with React` theme profile that includes React v16 in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 
-    ![web developer dashboard themes](./img/wdd-portlet-1.png)
+![web developer dashboard themes](./img/wdd-profile-1.png)
+![web developer dashboard themes](./img/wdd-profile-2.png)
+![web developer dashboard themes](./img/wdd-profile-3.png)
+![web developer dashboard themes](./img/wdd-portlet-1.png)
 
     - Edit the code, click watch in the Web Developer Dashboard and run `npm run build`. If you have watch enabled in the Developer Dashboard, changes will be synchronized to the server.
     

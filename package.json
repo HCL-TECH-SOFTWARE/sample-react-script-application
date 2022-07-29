@@ -4,9 +4,27 @@
   "private": "true",
   "description": "This example app shows how React can be used in Script App portlets. It uses DX modular themes aggregator capability to provide React and ReactDOM.",
   "main": "index.js",
+  "config": {
+    "dxProtocol": "http",
+    "dxHostName": "localhost",
+    "dxPort": "10039",
+    "dxUserName": "wpsadmin",
+    "dxPassword": "wpsadmin",
+    "dxContentHandlerPath": "/wps/mycontenthandler",
+    "dxVirtualPortalContext": "",
+    "dxProjectContext": "",
+    "dxMainHtmlFile": "index.html",
+    "dxSiteArea": "Script Application Library/Script Applications/",
+    "dxContentName": "sampleReactApplication",
+    "dxContentTitle": "Sample React Script Application",
+    "dxContentRoot": "/Users/christianklein/git/sample-react-script-application/build"
+  },
   "scripts": {
     "start": "webpack-dev-server --config  webpack.dev.js --open",
-    "build": "webpack --config  webpack.prod.js"
+    "build": "webpack --config  webpack.prod.js",
+    "check-env": "node -e 'console.log(process.env)' | grep npm",
+    "predxdeploy": "npm run build",
+    "dxdeploy": "dxclient deploy-scriptapplication push -dxProtocol \"$npm_package_config_dxProtocol\" -hostname \"$npm_package_config_dxHostName\" -dxPort \"$npm_package_config_dxPort\" -dxUsername \"$npm_package_config_dxUserName\" -dxPassword \"$npm_package_config_dxPassword\" -contenthandlerPath \"$npm_package_config_dxContentHandlerPath\" -virtualPortalContext \"$npm_package_config_dxVirtualPortalContext\" -projectContext \"$npm_package_config_dxProjectContext\" -mainHtmlFile \"$npm_package_config_dxMainHtmlFile\" -wcmSiteArea \"$npm_package_config_dxSiteArea\" -wcmContentName \"$npm_package_config_dxContentName\" -wcmContentTitle \"$npm_package_config_dxContentTitle\" -contentRoot \"$npm_package_config_dxContentRoot\" "
   },
   "keywords": [],
   "author": "Christian Klein",

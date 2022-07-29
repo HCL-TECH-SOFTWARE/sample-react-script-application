@@ -1,7 +1,7 @@
 # HCL DX React Script App Example
 
 ## Overview
-This example app shows how React can be used in Script App portlets. It uses DX modular themes aggregator capability to provide React and ReactDOM.
+This example app shows how React can be used in Script App portlets. 
 
 You can also run React inside a WCM component using Babel ([see here](./babel-standalone.md)) or pre-transpiled code. Using @babel/standalone is not recommended for production deployments (see: https://babeljs.io/docs/en/babel-standalone). 
 
@@ -10,7 +10,12 @@ For more information on how to build and deploy DX Script Apps, see the followin
 - [Script Application Section in the official HCL DX documentation](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_portlet.html)
 - [HCL Webinar for the Script Application](https://register.gotowebinar.com/register/7426671489876419343)
 
-Webpack is used to package the React components and create a build folder. The example uses Windows [symbolic links](https://en.wikipedia.org/wiki/Symbolic_link) to map the build folder to the Web Developer Dashboard. This would be the same approach on Linux or MacOS using [_ln_](https://man7.org/linux/man-pages/man1/ln.1.html) instead of [_mklink_](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/mklink).
+
+This sample uses dxclient to push the script application. For more information see the dxclient documentation [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html) and  [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b). For older CFs that do not include dxclient, see older [versions](https://github.com/HCL-TECH-SOFTWARE/sample-react-script-application/releases/tag/v1.0) Readme files of this project.
+
+
+
+Webpack is used to package the React components and create a build folder. The example uses [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html) to deploy to the HCL DX 9.5 server (CF19 and later). (See older versions of this project to use Web Developer Toolkit if using versions prior to CF19)
 
 The project structure is as follows:
 
@@ -28,7 +33,7 @@ The project structure is as follows:
 
 Run `npm start` to start a local Webpack dev server. Alternatively you can use the run option in the HCL DX Web Developer Dashboard.
 
-Run `npm run build` to build to the build folder. If the folder is linked into the script folder of the Dashoard and watch is enabled on the folder in the Dashboard, changes will be pushed into the configured DX server automatically. 
+Run `npm run build` to build to the build folder. 
 
 The example uses the HCL DX 9.5 docker container but any DX instance can be used. 
 
@@ -42,46 +47,56 @@ If you would like to add your own React files or need instructions for environme
 
 1. If you want to install a local DX docker container to run against, see the instructions [here](./docker.md).
 
-2. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
+2. Install [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html).
 
-3. Install the DX Web Developer Dashboard and point it to the DX server you want to deploy to, if you do not have done so already. See instructions [here](./dxwebdashboard.md).
-Alternatively you can also use sp push application or dxclient. 
+3. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
 
-6. Clone this project somewhere on your drive
-7. Run npm install at the root of the project to install Babel and its dependencies. *You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `* to install the dependencies.
-8. Create a symbolic link to the build folder from the scripts directory
-    
-    **_Linux / MAC OS_**
-    - ln  -s /_my_react_sample_app_folder_/sample-react-script-application/build /_my_DX_Web_Dev_Dashboard_folder_/DX/script/build
+4. Clone this project somewhere on your drive
 
-    **_Windows:_**
-    - Click the Start button
-    - Type CMD in the Start Search box
-    - Press and hold down [Ctrl]+[Shift]+[Enter] to start in administrator mode
-    - Run the mklink command.
-      
-      ```mklink /D C:\HCL\dxdashboard\script\react-meme C:\HCL\dxdashboard\dev\react-meme\build```
-9. Run `npm run build` to build to the build folder. If the folder is linked into the script folder of the Dashoard and watch is enabled on the folder in the Dashboard, changes will be pushed into the configured DX server automatically. 
+5. Run npm install at the root of the project to install Babel and its dependencies. *You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `* to install the dependencies.
 
+6. Adjust the dx variables in `package.json` to your environment:
 
-11. Upload the script app.
+```
+   "config": {
+     "dxProtocol": "http",
+     "dxHostName": "localhost",
+     "dxPort": "10039",
+     "dxUserName": "wpsadmin",
+     "dxPassword": "wpsadmin",
+     "dxContentHandlerPath": "/wps/mycontenthandler",
+     "dxVirtualPortalContext": "",
+     "dxProjectContext": "",
+     "dxMainHtmlFile": "index.html",
+     "dxSiteArea": "Script Application Library/Script Applications/",
+     "dxContentName": "sampleReactApplication",
+     "dxContentTitle": "Sample React Script Application",
+     "dxContentRoot": "/Users/christianklein/git/sample-react-script-application/build"
+  },
+```
+7. Ensure the following scripts are defined in your `package.json`:
+```
+  "scripts": {
+    "start": "webpack-dev-server --config  webpack.dev.js --open",
+    "build": "webpack --config  webpack.prod.js",
+    "predxdeploy": "npm run build",
+    "dxdeploy": "dxclient deploy-scriptapplication push -dxProtocol \"$npm_package_config_dxProtocol\" -hostname \"$npm_package_config_dxHostName\" -dxPort \"$npm_package_config_dxPort\" -dxUsername \"$npm_package_config_dxUserName\" -dxPassword \"$npm_package_config_dxPassword\" -contenthandlerPath \"$npm_package_config_dxContentHandlerPath\" -virtualPortalContext \"$npm_package_config_dxVirtualPortalContext\" -projectContext \"$npm_package_config_dxProjectContext\" -mainHtmlFile \"$npm_package_config_dxMainHtmlFile\" -wcmSiteArea \"$npm_package_config_dxSiteArea\" -wcmContentName \"$npm_package_config_dxContentName\" -wcmContentTitle \"$npm_package_config_dxContentTitle\" -contentRoot \"$npm_package_config_dxContentRoot\" "
+  },
+```
+9. Run:
 
-    - In the DX Web Developer Dashboard go to Script Applications and hit refresh. Since you linked the build folder into the scripts folder in step 8, you should now see the react-meme application.
-    - Script Applications are stored as content in the CMS, and the sp-config.json file in the src folder configures the DX Web Developer Dashboard appropriately. See the documentation on [command line push support](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/cmd_line_push_cmd.html) for more information.
-    - You can now push the application to the server using the push option.
+    - `npm run start` to run the project in a local lightweight http server
+    - `npm run build` to build to the build folder
+    - `npm run dxdeploy` to build and deploy the project to your dx server
 
-    ![web developer dashboard themes](./img/wdd-script-1.png)
-
-Alternatively you can use dxclient to push the script application. For more information see [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b)
-
-    - Create a new page in DX and choose the `Deferred with React` theme profile that includes React v16 in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
+10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React v16 (depending on you CF level this may change) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 
 ![web developer dashboard themes](./img/wdd-profile-1.png)
 ![web developer dashboard themes](./img/wdd-profile-2.png)
 ![web developer dashboard themes](./img/wdd-profile-3.png)
 ![web developer dashboard themes](./img/wdd-portlet-1.png)
 
-    - Edit the code, click watch in the Web Developer Dashboard and run `npm run build`. If you have watch enabled in the Developer Dashboard, changes will be synchronized to the server.
+11. Edit the code, click watch in the Web Developer Dashboard and run `npm run dxdeploy`. Your changes will be autmatiocally built and uploaded to the server.
     
 **Notes:**
 

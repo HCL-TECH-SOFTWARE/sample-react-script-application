@@ -3,7 +3,7 @@ let common = require("./webpack.common");
 const { merge } = require('webpack-merge'); // New import based on the 5.0.3 changelog
 let {CleanWebpackPlugin} = require("clean-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
-let OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 let TerserPlugin = require("terser-webpack-plugin");
 let HTMLWebpackPlugin = require('html-webpack-plugin');
 let CopyPlugin = require("copy-webpack-plugin");
@@ -16,7 +16,7 @@ module.exports = merge(common, {
     },
     optimization: {
         minimizer: [
-            new OptimizeCssAssetsPlugin(),
+            new CssMinimizerPlugin(),
             new TerserPlugin(),
             new HTMLWebpackPlugin({
                 template: "./src/index.html",

@@ -1,4 +1,3 @@
-version: '3.0'
 services:
   dx:
     image: hcl/dx/core:v95_CF202_20220319-1358

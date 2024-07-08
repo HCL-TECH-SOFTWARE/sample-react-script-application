@@ -49,7 +49,7 @@ If you would like to add your own React files or need instructions for environme
 
 2. Install [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html).
 
-3. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard. A node.version is included to support [fnm](https://github.com/Schniz/fnm). 
+3. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
 
 4. Clone this project somewhere on your drive
 

@@ -55,39 +55,40 @@ If you would like to add your own React files or need instructions for environme
 
 5. Run npm install at the root of the project to install Babel and its dependencies. *You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `* to install the dependencies.
 
-6. Adjust the dx variables in `package.json` to your environment:
+6. Adjust the dx variables in `.dxclient.env` to your environment (Review the dxContentRoot especially. An example is included for both Windows and Linux/Mac):
 
 ```
-   "config": {
-     "dxProtocol": "http",
-     "dxHostName": "localhost",
-     "dxPort": "10039",
-     "dxUserName": "wpsadmin",
-     "dxPassword": "wpsadmin",
-     "dxContentHandlerPath": "/wps/mycontenthandler",
-     "dxVirtualPortalContext": "",
-     "dxProjectContext": "",
-     "dxMainHtmlFile": "index.html",
-     "dxSiteArea": "Script Application Library/Script Applications/",
-     "dxContentName": "sampleReactApplication",
-     "dxContentTitle": "Sample React Script Application",
-     "dxContentRoot": "/Users/christianklein/git/sample-react-script-application/build"
-  },
+dxProtocol=http
+dxHostName=localhost
+dxPort=10039
+dxUserName=wpsadmin
+dxPassword=wpsadmin
+dxContentHandlerPath=/wps/mycontenthandler
+dxVirtualPortalContext=
+dxProjectContext=
+dxMainHtmlFile=index.html
+dxSiteArea=Script Application Library/Script Applications/
+dxContentName=sampleReactApplication
+dxContentTitle=Sample React Script Application
+# dxContentRoot=/Users/me/git/sample-react-script-application/build
+dxContentRoot=C:\\dx\\sample-react-script-application\\build
+verbose=false
 ```
+
 7. Ensure the following scripts are defined in your `package.json`:
 ```
   "scripts": {
     "start": "webpack-dev-server --config  webpack.dev.js --open",
+    "check-env": "node -e 'console.log(process.env)' | grep npm",
     "build": "webpack --config  webpack.prod.js",
-    "predxdeploy": "npm run build",
-    "dxdeploy": "dxclient deploy-scriptapplication push -dxProtocol \"$npm_package_config_dxProtocol\" -hostname \"$npm_package_config_dxHostName\" -dxPort \"$npm_package_config_dxPort\" -dxUsername \"$npm_package_config_dxUserName\" -dxPassword \"$npm_package_config_dxPassword\" -contenthandlerPath \"$npm_package_config_dxContentHandlerPath\" -virtualPortalContext \"$npm_package_config_dxVirtualPortalContext\" -projectContext \"$npm_package_config_dxProjectContext\" -mainHtmlFile \"$npm_package_config_dxMainHtmlFile\" -wcmSiteArea \"$npm_package_config_dxSiteArea\" -wcmContentName \"$npm_package_config_dxContentName\" -wcmContentTitle \"$npm_package_config_dxContentTitle\" -contentRoot \"$npm_package_config_dxContentRoot\" "
+    "dx:deploy": "node dxclient.mjs "
   },
 ```
 9. Run:
 
     - `npm run start` to run the project in a local lightweight http server
     - `npm run build` to build to the build folder
-    - `npm run dxdeploy` to build and deploy the project to your dx server
+    - `npm run dx:deploy` to build and deploy the project to your dx server
 
 10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React v16 (depending on you CF level this may change) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 

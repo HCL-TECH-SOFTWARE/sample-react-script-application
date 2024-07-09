@@ -90,7 +90,7 @@ verbose=false
    - `npm run build` to build to the build folder
    - `npm run dx:deploy` to build and deploy the project to your dx server
 
-10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React v17 (depending on you CF level this may change or you may provide your [own module](PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
+10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React (depending on you CF level this may change or you may provide your [own module](PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 
 ![web developer dashboard themes](./img/wdd-profile-1.png)
 ![web developer dashboard themes](./img/wdd-profile-2.png)

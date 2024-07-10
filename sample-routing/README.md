@@ -85,17 +85,11 @@ If you would like to add your own React files or need instructions for environme
 
 ## Setup
 
-1. If you want to install a local DX docker container to run against, see the instructions [here](../docker.md).
+1. Ensure you have run the basic installation steps see the main [README.md](../README.md)
 
-2. Install [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html).
+2. Run npm install at the root of the project to install Babel and its dependencies. _You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `_ to install the dependencies.
 
-3. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
-
-4. Clone this project somewhere on your drive
-
-5. Run npm install at the root of the project to install Babel and its dependencies. _You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `_ to install the dependencies.
-
-6. Adjust the dx variables in `.dxclient.env` to your environment (Review the dxContentRoot especially. An example is included for both Windows and Linux/Mac):
+3. Adjust the dx variables in `.dxclient.env` to your environment (Review the dxContentRoot especially. An example is included for both Windows and Linux/Mac):
 
 ```
 dxProtocol=http
@@ -115,7 +109,7 @@ dxContentRoot=C:\dx\sample-react-script-application\build
 verbose=false
 ```
 
-7. Ensure the following scripts are defined in your `package.json`:
+4. Ensure the following scripts are defined in your `package.json`:
 
 ```
   "scripts": {
@@ -126,13 +120,13 @@ verbose=false
   },
 ```
 
-9. Run:
+5. Run:
 
    - `npm run start` to run the project in a local lightweight http server
    - `npm run build` to build to the build folder
    - `npm run dx:deploy` to build and deploy the project to your dx server
 
-10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React (depending on you CF level this may change or you may provide your [own module](../sample-basic/PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
+6. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React (depending on you CF level this may change or you may provide your [own module](../sample-basic/PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 
 TODO: New Images here
 
@@ -141,7 +135,7 @@ TODO: New Images here
 ![web developer dashboard themes](../sample-basic/img/wdd-profile-3.png)
 ![web developer dashboard themes](../sample-basic/img/wdd-profile-4.png)
 
-11. Edit the code and run `npm run dx:deploy`. Your changes will be uploaded to the server.
+7. Edit the code and run `npm run dx:deploy`. Your changes will be uploaded to the server.
 
 **Notes:**
 

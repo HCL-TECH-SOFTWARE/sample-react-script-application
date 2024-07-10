@@ -6,14 +6,7 @@ This example app shows how React can be used in Script App portlets.
 
 You can also run React inside a WCM component using Babel ([see here](./babel-standalone.md)) or pre-transpiled code. Using @babel/standalone is not recommended for production deployments (see: https://babeljs.io/docs/en/babel-standalone).
 
-For more information on how to build and deploy DX Script Apps, see the following links:
-
-- [Script Application Section in the official HCL DX documentation](https://help.hcltechsw.com/digital-experience/8.5/script-portlet/script_portlet.html)
-- [HCL Webinar for the Script Application](https://register.gotowebinar.com/register/7426671489876419343)
-
-This sample uses dxclient to push the script application. For more information see the dxclient documentation [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html) and [here](https://help.hcltechsw.com/digital-experience/9.5/containerization/scriptapplications.html#scriptapplications__section_um4_jqg_w4b). For older CFs that do not include dxclient, see older [versions](https://github.com/HCL-TECH-SOFTWARE/sample-react-script-application/releases/tag/v1.0) Readme files of this project.
-
-Webpack is used to package the React components and create a build folder. The example uses [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html) to deploy to the HCL DX 9.5 server (CF19 and later). (See older versions of this project to use Web Developer Toolkit if using versions prior to CF19)
+For more information on how to build and deploy DX Script Apps, see the main [README.md](../README.md)
 
 The project structure is as follows:
 
@@ -42,17 +35,11 @@ If you would like to add your own React files or need instructions for environme
 
 ## Setup
 
-1. If you want to install a local DX docker container to run against, see the instructions [here](../docker.md).
+1. Ensure you have run the basic installation steps see the main [README.md](../README.md)
 
-2. Install [dxclient](https://help.hcltechsw.com/digital-experience/9.5/containerization/dxclient.html).
+2. Run npm install at the root of the sub project you want to try out to install Babel and its dependencies. _You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `_ to install the dependencies.
 
-3. Install [Node.js](https://nodejs.org/en/download/). See the version requirements for the DX Developer Dashboard.
-
-4. Clone this project somewhere on your drive
-
-5. Run npm install at the root of the project to install Babel and its dependencies. _You may need to run `npm install --legacy-peer-deps` and `npx -p npm@6 npm audit fix `_ to install the dependencies.
-
-6. Adjust the dx variables in `.dxclient.env` to your environment (Review the dxContentRoot especially. An example is included for both Windows and Linux/Mac):
+3. Adjust the dx variables in `.dxclient.env` to your environment (Review the dxContentRoot especially. An example is included for both Windows and Linux/Mac):
 
 ```
 dxProtocol=http
@@ -72,7 +59,7 @@ dxContentRoot=C:\dx\sample-react-script-application\build
 verbose=false
 ```
 
-7. Ensure the following scripts are defined in your `package.json`:
+4. Ensure the following scripts are defined in your `package.json`:
 
 ```
   "scripts": {
@@ -83,20 +70,20 @@ verbose=false
   },
 ```
 
-9. Run:
+5. Run:
 
    - `npm run start` to run the project in a local lightweight http server
    - `npm run build` to build to the build folder
    - `npm run dx:deploy` to build and deploy the project to your dx server
 
-10. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React (depending on you CF level this may change or you may provide your [own module](PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
+6. Log into your HCL DX server and create a new page. Choose the `Deferred with React` theme profile that includes React (depending on you CF level this may change or you may provide your [own module](PRE-CF201.md)) in the advanced page settings. You should see the react-meme application listed under Script Applications. Add it to the page and exit edit mode.
 
 ![web developer dashboard themes](./img/wdd-profile-1.png)
 ![web developer dashboard themes](./img/wdd-profile-2.png)
 ![web developer dashboard themes](./img/wdd-profile-3.png)
 ![web developer dashboard themes](./img/wdd-portlet-1.png)
 
-11. Edit the code and run `npm run dxdeploy`. Your changes will be uploaded to the server.
+7. Edit the code and run `npm run dxdeploy`. Your changes will be uploaded to the server.
 
 **Notes:**
 

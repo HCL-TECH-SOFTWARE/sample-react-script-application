@@ -20,7 +20,6 @@
     "file-loader": "^6.2.0"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -28,6 +27,7 @@
     "copy-webpack-plugin": "^12.0.0",
     "css-loader": "^7.0.0",
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "dotenv": "^16.4.5",
     "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
